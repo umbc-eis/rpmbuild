@@ -6,7 +6,9 @@ inputs:
   spec_file:
     description: 'path to the spec file'
     required: true
-    default: '*.spec'                     #Any spec file in top 
+    default: '*.spec'                     #Any spec file in top
+  srpm:
+    default: '*.src.rpm'
 
 outputs:
   source_rpm_path:
