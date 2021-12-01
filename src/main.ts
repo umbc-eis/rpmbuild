@@ -19,11 +19,13 @@ async function run() {
 
     // get inputs from workflow
     // specFile name
+    const srpm = core.getInput('srpm');
     const configPath = core.getInput('spec_file'); // user input, eg: `foo.spec' or `rpm/foo.spec'
     const basename = path.basename(configPath); // always just `foo.spec`
     const specFile = {
       srcFullPath: `/github/workspace/${configPath}`,
       destFullPath: `/github/home/rpmbuild/SPECS/${basename}`,
+      srpm: `./${srpm}`
     };
 
     // Read spec file and get values 
@@ -42,6 +44,8 @@ async function run() {
     }
     console.log(`name: ${name}`);
     console.log(`version: ${version}`);
+    
+    await exec.exec('rpm -i ${specFile.srpm}'
 
     // setup rpm tree
     await exec.exec('rpmdev-setuptree');
